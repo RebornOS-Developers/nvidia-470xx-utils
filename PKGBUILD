@@ -230,7 +230,7 @@ package_nvidia-470xx-utils() {
     install -D -m644 "$srcdir/10-amdgpu-nvidia-drm-outputclass.conf" "$pkgdir/usr/share/X11/xorg.conf.d/10-amdgpu-nvidia-drm-outputclass.conf"
     install -D -m644 "$srcdir/10-intel-nvidia-drm-outputclass.conf" "$pkgdir/usr/share/X11/xorg.conf.d/10-intel-nvidia-drm-outputclass.conf"
 
-    install -Dm644 "${srcdir}/nvidia-utils.sysusers" "${pkgdir}/usr/lib/sysusers.d/$pkgname.conf"
+    install -Dm644 "${srcdir}/nvidia-470xx-utils.sysusers" "${pkgdir}/usr/lib/sysusers.d/$pkgname.conf"
 
     # nvidia-settings
     install -D -m755 nvidia-settings "${pkgdir}/usr/bin/nvidia-settings"
@@ -242,7 +242,7 @@ package_nvidia-470xx-utils() {
     sed -e 's:__UTILS_PATH__:/usr/bin:' -e 's:__PIXMAP_PATH__:/usr/share/pixmaps:' -i "${pkgdir}/usr/share/applications/nvidia-settings.desktop"
 
     # install alpm hook
-    install -Dm644 "$srcdir/90-nvidia-utils.hook" "$pkgdir/usr/share/libalpm/hooks/90-nvidia-utils.hook"
+    install -Dm644 "$srcdir/90-nvidia-470xx-utils.hook" "$pkgdir/usr/share/libalpm/hooks/90-nvidia-470xx-utils.hook"
 
     install -D -m644 LICENSE "$pkgdir/usr/share/licenses/nvidia/LICENSE"
     ln -s nvidia "$pkgdir/usr/share/doc/nvidia-utils"

@@ -19,7 +19,7 @@ source=('10-amdgpu-nvidia-drm-outputclass.conf'
         '10-intel-nvidia-drm-outputclass.conf'
         '90-nvidia-470xx-utils.hook'
         'mhwd-nvidia'
-        'nvidia-utils-470xx.sysusers'
+        'nvidia-470xx-utils.sysusers'
         "https://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/${_pkg}.run")
 sha256sums=('3b017d461420874dc9cce8e31ed3a03132a80e057d0275b5b4e1af8006f13618'
             'f57d8e876dd88e6bb7796899f5d45674eb7f99cee16595f34c1bab7096abdeb3'

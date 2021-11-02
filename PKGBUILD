@@ -2,8 +2,9 @@
 # Maintainer: Bernhard Landauer <bernhard[at]manjaro[dot]org>
 
 # Arch credits:
-# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
-# Maintainer: Thomas Baechler <thomas@archlinux.org>
+# Maintainer:  Jonathon Fernyhough <jonathon+m2x+dev>
+# Contributor: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Contributor: Thomas Baechler <thomas@archlinux.org>
 # Contributor: James Rayner <iphitus@gmail.com>
 
 pkgbase=nvidia-470xx-utils
@@ -31,10 +32,21 @@ sha256sums=('3b017d461420874dc9cce8e31ed3a03132a80e057d0275b5b4e1af8006f13618'
 create_links() {
     # create soname links
     find "$pkgdir" -type f -name '*.so*' ! -path '*xorg/*' -print0 | while read -d $'\0' _lib; do
-        _soname=$(dirname "${_lib}")/$(readelf -d "${_lib}" | grep -Po 'SONAME.*: \[\K[^]]*' || true)
-        _base=$(echo ${_soname} | sed -r 's/(.*).so.*/\1.so/')
-        [[ -e "${_soname}" ]] || ln -s $(basename "${_lib}") "${_soname}"
-        [[ -e "${_base}" ]] || ln -s $(basename "${_soname}") "${_base}"
+        _dirname="$(dirname "${_lib}")"
+        _original="$(basename "${_lib}")"
+        _soname="$(readelf -d "${_lib}" | grep -Po 'SONAME.*: \[\K[^]]*' || true)"
+        _base="$(echo ${_soname} | sed -r 's/(.*)\.so.*/\1.so/')"
+
+        pushd "${_dirname}" >/dev/null
+
+        if [[ -n "${_soname}" && ! -e "./${_soname}" ]]; then
+            ln -s $(basename "${_lib}") "./${_soname}"
+        fi
+        if [[ -n "${_base}" && ! -e "./${_base}" ]]; then
+            ln -s "./${_soname}" "./${_base}"
+        fi
+
+        popd >/dev/null
     done
 }
 
@@ -145,6 +157,11 @@ package_nvidia-470xx-utils() {
     install -D -m755 "libnvidia-cfg.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-cfg.so.${pkgver}"
     install -D -m755 "libnvidia-ml.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-ml.so.${pkgver}"
     install -D -m755 "libnvidia-glvkspirv.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-glvkspirv.so.${pkgver}"
+    install -D -m755 "libnvidia-allocator.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-allocator.so.${pkgver}"
+    install -D -m755 "libnvidia-vulkan-producer.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-vulkan-producer.so.${pkgver}"
+    # Sigh libnvidia-vulkan-producer.so has no SONAME set so create_links doesn't catch it. NVIDIA please fix!
+    ln -s "libnvidia-vulkan-producer.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-vulkan-producer.so.1"
+    ln -s "libnvidia-vulkan-producer.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-vulkan-producer.so"
 
     # Vulkan ICD
     install -D -m644 "nvidia_icd.json" "${pkgdir}/usr/share/vulkan/icd.d/nvidia_icd.json"
@@ -169,6 +186,7 @@ package_nvidia-470xx-utils() {
     # raytracing
     install -D -m755 "libnvoptix.so.${pkgver}" "${pkgdir}/usr/lib/libnvoptix.so.${pkgver}"
     install -D -m755 "libnvidia-rtcore.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-rtcore.so.${pkgver}"
+    install -D -m755 "libnvidia-cbl.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-cbl.so.${pkgver}"
 
     # NGX
     install -D -m755 nvidia-ngx-updater "${pkgdir}/usr/bin/nvidia-ngx-updater"

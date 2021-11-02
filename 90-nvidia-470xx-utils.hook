@@ -1,0 +1,14 @@
+[Trigger]
+Type = Path
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Target = usr/lib/modules/*/nvidia-drm*
+Target = usr/lib/modules/*/vmlinuz
+
+[Action]
+Description = Updating Kernel initcpios for Nvidia-DRM...
+Depends = mkinitcpio
+When = PostTransaction
+NeedsTargets
+Exec = /bin/sh -c 'while read -r trg; do case $trg in usr/lib/modules/*/vmlinuz) exit 0; esac; done; /usr/bin/mkinitcpio -P'

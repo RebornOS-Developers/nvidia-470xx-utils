@@ -10,7 +10,7 @@
 pkgbase=nvidia-470xx-utils
 pkgname=("nvidia-470xx-dkms" "nvidia-470xx-utils" "mhwd-nvidia-470xx" "opencl-nvidia-470xx")
 pkgver=470.82.00
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
@@ -116,7 +116,7 @@ package_nvidia-470xx-utils() {
     depends=('xorg-server' 'libglvnd' 'egl-wayland' 'jansson' 'gtk3' 'libxv' 'libvdpau' 'libxnvctrl')
     optdepends=('xorg-server-devel: nvidia-xconfig'
                 'opencl-nvidia: OpenCL support')
-    provides=('vulkan-driver' 'opengl-driver' 'nvidia-libgl' "nvidia-utils")
+    provides=('vulkan-driver' 'opengl-driver' 'nvidia-libgl' "nvidia-utils=pkgver")
     conflicts=('nvidia-libgl' 'nvidia-utils')
     install="${pkgname}.install"
 

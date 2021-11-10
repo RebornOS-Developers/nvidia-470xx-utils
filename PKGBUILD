@@ -9,8 +9,8 @@
 
 pkgbase=nvidia-470xx-utils
 pkgname=("nvidia-470xx-dkms" "nvidia-470xx-utils" "mhwd-nvidia-470xx" "opencl-nvidia-470xx")
-pkgver=470.82.00
-pkgrel=2
+pkgver=470.86
+pkgrel=1
 arch=('x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
@@ -27,7 +27,7 @@ sha256sums=('3b017d461420874dc9cce8e31ed3a03132a80e057d0275b5b4e1af8006f13618'
             'c2396f48835caf7ae60bc17e07eeaf142c8b7074d15d428d6c61d9e38373b8d8'
             'ddffe7033abf38253b50d4c02d780a270f79089bbe163994e00a4d7c91d64f0e'
             'd8d1caa5d72c71c6430c2a0d9ce1a674787e9272ccce28b9d5898ca24e60a167'
-            'd0bd7ac1e2340fca761a78fc6e977ac6405438c74f63a1c38b27241a5f766544')
+            '4fb7a039dbd210648c785030e81844350b1b69e8d56c8da6953b050958673c4f')
 
 create_links() {
     # create soname links

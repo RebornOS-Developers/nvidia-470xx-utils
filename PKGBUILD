@@ -10,7 +10,7 @@
 pkgbase=nvidia-470xx-utils
 pkgname=("nvidia-470xx-dkms" "nvidia-470xx-utils" "mhwd-nvidia-470xx" "opencl-nvidia-470xx")
 pkgver=470.86
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
@@ -116,7 +116,7 @@ package_nvidia-470xx-utils() {
     depends=('xorg-server' 'libglvnd' 'egl-wayland' 'jansson' 'gtk3' 'libxv' 'libvdpau' 'libxnvctrl')
     optdepends=('xorg-server-devel: nvidia-xconfig'
                 'opencl-nvidia: OpenCL support')
-    provides=('vulkan-driver' 'opengl-driver' 'nvidia-libgl' "nvidia-utils=pkgver")
+    provides=('vulkan-driver' 'opengl-driver' 'nvidia-libgl' "nvidia-utils=${pkgver}")
     conflicts=('nvidia-libgl' 'nvidia-utils')
     install="${pkgname}.install"
 
@@ -278,7 +278,7 @@ package_mhwd-nvidia-470xx() {
     sh -e $srcdir/mhwd-nvidia \
     $srcdir/$_pkg/README.txt \
     $srcdir/$_pkg/kernel/nvidia/nv-kernel.o_binary \
-    > $pkgdir/var/lib/mhwd/ids/pci/nvidia.ids
+    > $pkgdir/var/lib/mhwd/ids/pci/nvidia-470xx.ids
     # add PCIID: 1b82 Nvidia Gforce 1070 Ti
-    sed -i 's/1b81 1b84/1b81 1b82 1b84/g' $pkgdir/var/lib/mhwd/ids/pci/nvidia.ids
+    sed -i 's/1b81 1b84/1b81 1b82 1b84/g' $pkgdir/var/lib/mhwd/ids/pci/nvidia-470xx.ids
 }

@@ -7,6 +7,13 @@
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 # Contributor: James Rayner <iphitus@gmail.com>
 
+# Change nvidia-470xx-utils dependency temporarily to libxnvctrl 
+# to build nvidia-470xx-utils in order to build libxnvctrl-470xx after
+sudo chrootbuild -p libxnvctrl-470xx -c -i /mnt/storage/makepkg/nvidia-470xx-utils-470.94-1-x86_64.pkg.tar.zst
+
+# Change nvidia-470xx-utils dependency back to libxnvctrl-470xx to build nvidia-470xx-utils
+sudo chrootbuild -p nvidia-470xx-utils -c -i /mnt/storage/makepkg/libxnvctrl-470xx-470.94-1-x86_64.pkg.tar.zst 
+
 pkgbase=nvidia-470xx-utils
 pkgname=("nvidia-470xx-dkms" "nvidia-470xx-utils" "mhwd-nvidia-470xx" "opencl-nvidia-470xx")
 pkgver=470.94

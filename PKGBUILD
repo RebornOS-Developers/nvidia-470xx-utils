@@ -7,17 +7,10 @@
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 # Contributor: James Rayner <iphitus@gmail.com>
 
-# Change nvidia-470xx-utils dependency temporarily to libxnvctrl 
-# to build nvidia-470xx-utils in order to build libxnvctrl-470xx after
-sudo chrootbuild -p libxnvctrl-470xx -c -i /mnt/storage/makepkg/nvidia-470xx-utils-470.94-1-x86_64.pkg.tar.zst
-
-# Change nvidia-470xx-utils dependency back to libxnvctrl-470xx to build nvidia-470xx-utils
-sudo chrootbuild -p nvidia-470xx-utils -c -i /mnt/storage/makepkg/libxnvctrl-470xx-470.94-1-x86_64.pkg.tar.zst 
-
 pkgbase=nvidia-470xx-utils
 pkgname=("nvidia-470xx-dkms" "nvidia-470xx-utils" "mhwd-nvidia-470xx" "opencl-nvidia-470xx")
 pkgver=470.94
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
@@ -258,7 +251,6 @@ package_nvidia-470xx-utils() {
     install -Dm644 nvidia-settings.1.gz "${pkgdir}/usr/share/man/man1/nvidia-settings.1.gz"
     install -Dm644 nvidia-settings.desktop "${pkgdir}/usr/share/applications/nvidia-settings.desktop"
     install -Dm644 nvidia-settings.png "${pkgdir}/usr/share/pixmaps/nvidia-settings.png"
-    install -Dm755 "libnvidia-gtk2.so.$pkgver" "$pkgdir/usr/lib/libnvidia-gtk2.so.$pkgver"
     install -Dm755 "libnvidia-gtk3.so.$pkgver" "$pkgdir/usr/lib/libnvidia-gtk3.so.$pkgver"
     sed -e 's:__UTILS_PATH__:/usr/bin:' -e 's:__PIXMAP_PATH__:/usr/share/pixmaps:' -i "${pkgdir}/usr/share/applications/nvidia-settings.desktop"
 

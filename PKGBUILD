@@ -1,5 +1,6 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dot]org>
 # Maintainer: Bernhard Landauer <bernhard[at]manjaro[dot]org>
+# Maintainer: Mark Wagie <mark at manjaro dot org>
 
 # Arch credits:
 # Maintainer:  Jonathon Fernyhough <jonathon+m2x+dev>
@@ -9,8 +10,8 @@
 
 pkgbase=nvidia-470xx-utils
 pkgname=("nvidia-470xx-dkms" "nvidia-470xx-utils" "mhwd-nvidia-470xx" "opencl-nvidia-470xx")
-pkgver=470.103.01
-pkgrel=3
+pkgver=470.129.06
+pkgrel=1
 arch=('x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
@@ -31,7 +32,7 @@ sha256sums=('3b017d461420874dc9cce8e31ed3a03132a80e057d0275b5b4e1af8006f13618'
             'd8d1caa5d72c71c6430c2a0d9ce1a674787e9272ccce28b9d5898ca24e60a167'
             '4fbfd461f939f18786e79f8dba5fdb48be9f00f2ff4b1bb2f184dbce42dd6fc3'
             '402b5549cbc7cc7e3d5d64fdff2c6e3c9d246cbf0066410a698e1457ed749172'
-            '56c2309f89c213463b0c46360f7b2275d7371d3c727af3fedc88c496edc887a5')
+            '410910b7006e17306332768329f4b53d6f9e91cc555c288991758e2a8f08a998')
 
 create_links() {
     # create soname links
@@ -71,7 +72,7 @@ package_opencl-nvidia-470xx() {
     pkgdesc="OpenCL implemention for NVIDIA"
     depends=('zlib')
     optdepends=('opencl-headers: headers necessary for OpenCL development')
-    provides=("opencl-nvidia" 'opencl-driver')
+    provides=("opencl-nvidia=${pkgver}" 'opencl-driver')
     conflicts=('opencl-nvidia')
 
     cd $_pkg
@@ -89,8 +90,8 @@ package_opencl-nvidia-470xx() {
 
 package_nvidia-470xx-dkms() {
     pkgdesc="NVIDIA drivers - module sources"
-    depends=('dkms' "nvidia-470xx-utils=$pkgver" 'libglvnd')
-    provides=('NVIDIA-MODULE')
+    depends=('dkms' "nvidia-470xx-utils=${pkgver}" 'libglvnd')
+    provides=('NVIDIA-MODULE' "nvidia-dkms=${pkgver}")
     conflicts=('nvidia-dkms')
 
     cd ${_pkg}
@@ -253,7 +254,7 @@ package_nvidia-470xx-utils() {
     install -Dm644 nvidia-settings.1.gz "${pkgdir}/usr/share/man/man1/nvidia-settings.1.gz"
     install -Dm644 nvidia-settings.desktop "${pkgdir}/usr/share/applications/nvidia-settings.desktop"
     install -Dm644 nvidia-settings.png "${pkgdir}/usr/share/pixmaps/nvidia-settings.png"
-    install -Dm755 "libnvidia-gtk3.so.$pkgver" "$pkgdir/usr/lib/libnvidia-gtk3.so.$pkgver"
+    install -Dm755 "libnvidia-gtk3.so.${pkgver}" "$pkgdir/usr/lib/libnvidia-gtk3.so.${pkgver}"
     sed \
         -e 's:__UTILS_PATH__:/usr/bin:' \
         -e 's:__PIXMAP_PATH__:/usr/share/pixmaps:' \
@@ -271,7 +272,7 @@ package_nvidia-470xx-utils() {
 }
 
 package_mhwd-nvidia-470xx() {
-    pkgdesc="MHWD module-ids for nvidia $pkgver"
+    pkgdesc="MHWD module-ids for nvidia ${pkgver}"
     arch=('any')
 
     install -d "$pkgdir/var/lib/mhwd/ids/pci/"

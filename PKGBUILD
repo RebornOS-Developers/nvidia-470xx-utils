@@ -23,7 +23,7 @@ source=('10-amdgpu-nvidia-drm-outputclass.conf'
         'mhwd-nvidia'
         'nvidia-470xx-utils.sysusers'
         'nvidia-470xx.rules'
-        'nvidia.shutdown'
+#        'nvidia.shutdown'
         "https://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/${_pkg}.run"
         'kernel-5.19.patch')
 sha256sums=('3b017d461420874dc9cce8e31ed3a03132a80e057d0275b5b4e1af8006f13618'
@@ -32,7 +32,6 @@ sha256sums=('3b017d461420874dc9cce8e31ed3a03132a80e057d0275b5b4e1af8006f13618'
             'ddffe7033abf38253b50d4c02d780a270f79089bbe163994e00a4d7c91d64f0e'
             'd8d1caa5d72c71c6430c2a0d9ce1a674787e9272ccce28b9d5898ca24e60a167'
             '4fbfd461f939f18786e79f8dba5fdb48be9f00f2ff4b1bb2f184dbce42dd6fc3'
-            '402b5549cbc7cc7e3d5d64fdff2c6e3c9d246cbf0066410a698e1457ed749172'
             'be98d247a43d7491a65bfdc997fb6531e1594346eb12a0faaa044672cdb5709f'
             'd1f6d83ea075eeadab2edb88108d166d70cea4a76d340877365cb2586e7beb0e')
 
@@ -269,7 +268,7 @@ package_nvidia-470xx-utils() {
         -i "${pkgdir}/usr/share/applications/nvidia-settings.desktop"
 
     # install fix for oldroot unmount
-    install -Dm755 "${srcdir}/nvidia.shutdown" "${pkgdir}/usr/lib/systemd/system-shutdown/nvidia.shutdown"
+#    install -Dm755 "${srcdir}/nvidia.shutdown" "${pkgdir}/usr/lib/systemd/system-shutdown/nvidia.shutdown"
     
     # install alpm hook
     install -Dm644 "$srcdir/90-nvidia-470xx-utils.hook" "$pkgdir/usr/share/libalpm/hooks/90-nvidia-470xx-utils.hook"

@@ -11,7 +11,7 @@
 pkgbase=nvidia-470xx-utils
 pkgname=("nvidia-470xx-dkms" "nvidia-470xx-utils" "mhwd-nvidia-470xx" "opencl-nvidia-470xx")
 pkgver=470.141.03
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
@@ -25,7 +25,7 @@ source=('10-amdgpu-nvidia-drm-outputclass.conf'
         'nvidia-470xx.rules'
 #        'nvidia.shutdown'
         "https://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/${_pkg}.run"
-        'kernel-5.19.patch')
+        'kernel-6.0.patch')
 sha256sums=('3b017d461420874dc9cce8e31ed3a03132a80e057d0275b5b4e1af8006f13618'
             'f57d8e876dd88e6bb7796899f5d45674eb7f99cee16595f34c1bab7096abdeb3'
             'c2396f48835caf7ae60bc17e07eeaf142c8b7074d15d428d6c61d9e38373b8d8'
@@ -33,7 +33,7 @@ sha256sums=('3b017d461420874dc9cce8e31ed3a03132a80e057d0275b5b4e1af8006f13618'
             'd8d1caa5d72c71c6430c2a0d9ce1a674787e9272ccce28b9d5898ca24e60a167'
             '4fbfd461f939f18786e79f8dba5fdb48be9f00f2ff4b1bb2f184dbce42dd6fc3'
             'be98d247a43d7491a65bfdc997fb6531e1594346eb12a0faaa044672cdb5709f'
-            'd1f6d83ea075eeadab2edb88108d166d70cea4a76d340877365cb2586e7beb0e')
+            '1527e5bae62e5fff9a909ebf49ba6a7bbfd8fb13a3aef2df5fdb4181236d7c06')
 
 create_links() {
     # create soname links
@@ -52,8 +52,8 @@ prepare() {
 
     cd kernel
 
-    # https://gist.github.com/joanbm/d630a02dde00bf087f64091d331f6dbb
-    patch -Np1 -i "$srcdir/kernel-5.19.patch"
+    # https://gist.github.com/joanbm/9f5e8150723912b3809f4de536974155
+    patch -Np1 -i "$srcdir/kernel-6.0.patch"
 
     sed -i "s/__VERSION_STRING/${pkgver}/" dkms.conf
     sed -i 's/__JOBS/`nproc`/' dkms.conf

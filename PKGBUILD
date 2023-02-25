@@ -11,7 +11,7 @@
 pkgbase=nvidia-470xx-utils
 pkgname=("nvidia-470xx-dkms" "nvidia-470xx-utils" "mhwd-nvidia-470xx" "opencl-nvidia-470xx")
 pkgver=470.161.03
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
@@ -274,6 +274,7 @@ package_nvidia-470xx-utils() {
 package_mhwd-nvidia-470xx() {
     pkgdesc="MHWD module-ids for nvidia ${pkgver}"
     arch=('any')
+    depends=('mhwd')
 
     install -d "$pkgdir/var/lib/mhwd/ids/pci/"
 
